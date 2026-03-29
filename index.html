@@ -126,6 +126,22 @@
       gap: 0.5rem;
     }
     footer a { color: inherit; text-decoration: underline; }
+    .listen {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      background: none;
+      border: 1px solid currentColor;
+      border-radius: 2px;
+      padding: 0.3rem 0.7rem;
+      cursor: pointer;
+      color: inherit;
+      opacity: 0.55;
+      transition: opacity 0.15s;
+      margin-top: 1rem;
+    }
+    .listen:hover { opacity: 1; }
+    .listen[aria-pressed="true"] { opacity: 1; }
     @media (max-width: 560px) {
       .project summary { flex-wrap: wrap; gap: 0.3rem; }
       .project-tldr { width: 100%; }
@@ -137,6 +153,14 @@
   <header>
     <p>Some of these are gaps I found and decided to fill. Some are things I built to understand something. All of them are mine.</p>
     <p>My consulting work lives at <a href="https://socialomical.com">Socialomical</a>. My art lives at <a href="https://salinamendoza.com">salinamendoza.com</a>. This is everything else.</p>
+    <button class="listen" aria-pressed="false" onclick="
+      var a=this.querySelector('audio'),p=this.getAttribute('aria-pressed')==='true';
+      if(p){a.pause();this.setAttribute('aria-pressed','false');this.textContent='► Listen'}
+      else{a.play();this.setAttribute('aria-pressed','true');this.textContent='■ Stop'}
+      if(!this.querySelector('audio'))this.appendChild(a);
+    ">► Listen<audio src="intro.mp3" preload="none" onended="
+      var b=this.parentElement;b.setAttribute('aria-pressed','false');b.textContent='► Listen';b.appendChild(this);
+    "></audio></button>
   </header>
   <p class="label">Selected work</p>
   <details class="project">
