@@ -2,7 +2,10 @@
   import { streamMessage } from './lib/api';
   import {
     EMAIL_REACTIVATION_PROMPT,
-    CONTENT_REPURPOSING_PROMPT,
+    CONTENT_SOCIAL_COPY_PROMPT,
+    CONTENT_REPURPOSE_IDEAS_PROMPT,
+    CONTENT_STRATEGY_PROMPT,
+    CONTENT_DISTRIBUTION_PROMPT,
     SHOPIFY_COPY_PROMPT,
   } from './lib/prompts';
 
@@ -10,7 +13,7 @@
 
   const MODES: { id: Mode; label: string }[] = [
     { id: 'email', label: 'Email Reactivation' },
-    { id: 'content', label: 'Content Repurposing' },
+    { id: 'content', label: 'Content' },
     { id: 'shopify', label: 'Shopify Copy' },
   ];
 
@@ -29,6 +32,14 @@
   let segment = $state<'warm' | 'cold'>('warm');
 
   // Content mode
+  type ContentType = 'social' | 'repurpose' | 'strategy' | 'distribution';
+  const CONTENT_TYPES: { id: ContentType; label: string }[] = [
+    { id: 'social', label: 'Social Copy' },
+    { id: 'repurpose', label: 'Repurpose Ideas' },
+    { id: 'strategy', label: 'Strategy' },
+    { id: 'distribution', label: 'Distribution' },
+  ];
+  let contentType = $state<ContentType>('social');
   let sourceContent = $state('');
 
   // Shopify mode
@@ -43,7 +54,12 @@
 
   function getSystemPrompt(): string {
     if (activeMode === 'email') return EMAIL_REACTIVATION_PROMPT;
-    if (activeMode === 'content') return CONTENT_REPURPOSING_PROMPT;
+    if (activeMode === 'content') {
+      if (contentType === 'social') return CONTENT_SOCIAL_COPY_PROMPT;
+      if (contentType === 'repurpose') return CONTENT_REPURPOSE_IDEAS_PROMPT;
+      if (contentType === 'strategy') return CONTENT_STRATEGY_PROMPT;
+      return CONTENT_DISTRIBUTION_PROMPT;
+    }
     return SHOPIFY_COPY_PROMPT;
   }
 
@@ -129,7 +145,7 @@
     if (!output.trim()) return [];
 
     // Split on markdown bold headers like **INSTAGRAM** or **Email 1: ...**
-    const parts = output.split(/(?=\*\*(?:Email \d|INSTAGRAM|FACEBOOK|TIKTOK|PRODUCT DESCRIPTION|TAGLINE|PRICE ANCHOR))/i);
+    const parts = output.split(/(?=\*\*(?:Email \d|INSTAGRAM|FACEBOOK|TIKTOK|PRODUCT DESCRIPTION|TAGLINE|PRICE ANCHOR|FROM ONE PIECE|SEQUENCE SUGGESTION|DORMANT ASSET|CONTENT PILLARS|THIS WEEK|WHAT TO STOP|UNDERUSED OPPORTUNIT|OWNED CHANNELS|EARNED CHANNELS|COMMUNITY PLAYS|PLATFORM HACKS))/i);
     if (parts.length <= 1) return [{ title: '', body: output }];
 
     return parts
@@ -221,12 +237,35 @@
     {:else if activeMode === 'content'}
       <div>
         <label class="mb-1 block font-mono text-xs uppercase tracking-widest opacity-60">
-          Paste caption/post or describe a piece
+          What do you need?
+        </label>
+        <div class="flex flex-wrap gap-0">
+          {#each CONTENT_TYPES as ct, i}
+            <button
+              onclick={() => (contentType = ct.id)}
+              class="border border-current/20 px-3 py-1.5 font-mono text-xs uppercase tracking-widest transition-opacity
+                {contentType === ct.id ? 'bg-current/10 opacity-100' : 'opacity-40 hover:opacity-70'}
+                {i > 0 ? 'border-l-0' : ''}"
+            >
+              {ct.label}
+            </button>
+          {/each}
+        </div>
+      </div>
+      <div>
+        <label class="mb-1 block font-mono text-xs uppercase tracking-widest opacity-60">
+          {#if contentType === 'social'}Paste caption/post or describe a piece{:else if contentType === 'repurpose'}Describe the artwork or asset to repurpose{:else if contentType === 'strategy'}What are you working on / promoting / stuck on?{:else}What are you trying to get in front of people?{/if}
         </label>
         <textarea
           bind:value={sourceContent}
           rows={5}
-          placeholder="Paste an existing caption, describe an artwork, or recap a moment from the studio/exhibit..."
+          placeholder={contentType === 'social'
+            ? 'Paste an existing caption, describe an artwork, or recap a moment from the studio/exhibit...'
+            : contentType === 'repurpose'
+              ? 'Describe a piece, a body of work, an exhibit, a studio moment — anything you want to squeeze more content from...'
+              : contentType === 'strategy'
+                ? 'What are you promoting right now? What\'s coming up? What feels stuck? Give context and I\'ll give you a plan...'
+                : 'Describe the exhibit, launch, event, or body of work you need to distribute...'}
           class="w-full resize-y border border-current/20 bg-transparent px-3 py-2 font-serif text-sm leading-relaxed outline-none placeholder:opacity-30 focus:border-current/50"
         ></textarea>
       </div>
