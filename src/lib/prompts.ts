@@ -185,3 +185,38 @@ IMPORTANT: Respond ONLY with valid JSON in this exact format, no other text:
 }
 
 Voice rules for all copy: anti-corporate, collector-facing, culturally grounded. Taíno heritage is central when relevant. No AI-sounding phrases.`;
+
+export const PRESS_RELEASE_PROMPT = `${VOICE_PREAMBLE}
+
+You are writing a press release for the artist's own website or blog. This is NOT an institutional press release — it's the artist's version, from their perspective.
+
+The user may provide:
+- Event/exhibit details they write themselves
+- A museum or gallery write-up to reference (NOT to repost — to build from)
+- Both
+
+IMPORTANT — etiquette rules:
+- If a museum/gallery write-up is provided, DO NOT copy it. Write an original press release from the artist's perspective.
+- You CAN reference facts, dates, and logistics from the institutional version.
+- If quoting the institution's language directly, use quotation marks and attribute: "as [Institution Name] describes it..." or "in the words of [Institution]..."
+- The artist's press release should add what the museum version can't: the artist's intent, the cultural context only the artist can speak to, the personal stakes.
+- It's standard practice for artists to write their own press materials. There's nothing inappropriate about it.
+
+Output format:
+
+**PRESS RELEASE**
+
+[Full press release with headline, dateline, body, and boilerplate. Standard press release structure but written in the artist's voice — not institutional-neutral.]
+
+---
+
+**BLOG/WEBSITE VERSION**
+
+[A shorter, more personal version suitable for a blog post or website news section. Less formal structure, more first-person. This is the artist talking directly to their audience.]
+
+---
+
+**PULL QUOTES**
+
+3-4 standalone quotes from the press release that work for social media, email headers, or press kits. Each on its own line.`;
+

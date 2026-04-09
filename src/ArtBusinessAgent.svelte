@@ -8,6 +8,7 @@
     CONTENT_DISTRIBUTION_PROMPT,
     SHOPIFY_COPY_PROMPT,
     LISTING_AGENT_PROMPT,
+    PRESS_RELEASE_PROMPT,
   } from './lib/prompts';
   import {
     type PricingConfig,
@@ -20,13 +21,14 @@
     parseDimensions,
   } from './lib/pricing';
 
-  type Mode = 'email' | 'content' | 'shopify' | 'listing';
+  type Mode = 'email' | 'content' | 'shopify' | 'listing' | 'press';
 
   const MODES: { id: Mode; label: string }[] = [
     { id: 'email', label: 'Email' },
     { id: 'content', label: 'Content' },
     { id: 'shopify', label: 'Shopify Copy' },
     { id: 'listing', label: 'Listing' },
+    { id: 'press', label: 'Press' },
   ];
 
   let activeMode = $state<Mode>('email');
@@ -59,6 +61,10 @@
   let medium = $state('');
   let dimensions = $state('');
   let storyNotes = $state('');
+
+  // Press mode
+  let pressDetails = $state('');
+  let pressMuseumWriteup = $state('');
 
   // Listing mode
   let listingImages = $state<File[]>([]);
@@ -106,6 +112,7 @@
       if (contentType === 'strategy') return CONTENT_STRATEGY_PROMPT;
       return CONTENT_DISTRIBUTION_PROMPT;
     }
+    if (activeMode === 'press') return PRESS_RELEASE_PROMPT;
     return SHOPIFY_COPY_PROMPT;
   }
 
@@ -117,6 +124,11 @@
     }
     if (activeMode === 'content') {
       return sourceContent;
+    }
+    if (activeMode === 'press') {
+      let msg = pressDetails;
+      if (pressMuseumWriteup.trim()) msg += `\n\n---\nMuseum/gallery write-up for reference (DO NOT copy — use as source material):\n${pressMuseumWriteup}`;
+      return msg;
     }
     let msg = `Title: ${pieceTitle}`;
     if (medium.trim()) msg += `\nMedium: ${medium}`;
@@ -130,6 +142,7 @@
     if (activeMode === 'email') return !!exhibitDetails.trim();
     if (activeMode === 'content') return !!sourceContent.trim();
     if (activeMode === 'shopify') return !!pieceTitle.trim();
+    if (activeMode === 'press') return !!pressDetails.trim();
     return false; // listing has its own submit
   }
 
@@ -317,7 +330,7 @@
 
   function getOutputSections(): { title: string; body: string }[] {
     if (!output.trim()) return [];
-    const parts = output.split(/(?=\*\*(?:Email \d|INSTAGRAM|FACEBOOK|TIKTOK|PRODUCT DESCRIPTION|TAGLINE|PRICE ANCHOR|FROM ONE PIECE|SEQUENCE SUGGESTION|DORMANT ASSET|CONTENT PILLARS|THIS WEEK|WHAT TO STOP|UNDERUSED OPPORTUNIT|OWNED CHANNELS|EARNED CHANNELS|COMMUNITY PLAYS|PLATFORM HACKS))/i);
+    const parts = output.split(/(?=\*\*(?:Email \d|INSTAGRAM|FACEBOOK|TIKTOK|PRODUCT DESCRIPTION|TAGLINE|PRICE ANCHOR|FROM ONE PIECE|SEQUENCE SUGGESTION|DORMANT ASSET|CONTENT PILLARS|THIS WEEK|WHAT TO STOP|UNDERUSED OPPORTUNIT|OWNED CHANNELS|EARNED CHANNELS|COMMUNITY PLAYS|PLATFORM HACKS|PRESS RELEASE|BLOG\/WEBSITE|PULL QUOTES))/i);
     if (parts.length <= 1) return [{ title: '', body: output }];
     return parts
       .map((part) => {
@@ -419,6 +432,15 @@
         <div>
           <label class="mb-1 block font-mono text-xs uppercase tracking-widest opacity-60">Story / notes</label>
           <textarea bind:value={storyNotes} rows={4} placeholder="What's behind this piece? Cultural context, process, why it matters..." class="w-full resize-y border border-current/20 bg-transparent px-3 py-2 font-serif text-sm leading-relaxed outline-none placeholder:opacity-30 focus:border-current/50"></textarea>
+        </div>
+      {:else if activeMode === 'press'}
+        <div>
+          <label class="mb-1 block font-mono text-xs uppercase tracking-widest opacity-60">Event / exhibit details</label>
+          <textarea bind:value={pressDetails} rows={4} placeholder="What's the event, exhibit, or announcement? Include dates, venue, what the audience will experience..." class="w-full resize-y border border-current/20 bg-transparent px-3 py-2 font-serif text-sm leading-relaxed outline-none placeholder:opacity-30 focus:border-current/50"></textarea>
+        </div>
+        <div>
+          <label class="mb-1 block font-mono text-xs uppercase tracking-widest opacity-60">Museum / gallery write-up (optional)</label>
+          <textarea bind:value={pressMuseumWriteup} rows={4} placeholder="Paste the institution's press release or write-up here. The agent will reference it — not copy it — and write your own version." class="w-full resize-y border border-current/20 bg-transparent px-3 py-2 font-serif text-sm leading-relaxed outline-none placeholder:opacity-30 focus:border-current/50"></textarea>
         </div>
       {/if}
     </div>
