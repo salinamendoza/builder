@@ -7,6 +7,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
+        main: 'index.html',
         'art-agent': 'art-agent/index.html',
       },
     },
