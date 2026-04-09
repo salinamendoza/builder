@@ -1,3 +1,59 @@
+type ContentBlock =
+  | { type: 'text'; text: string }
+  | { type: 'image'; source: { type: 'base64'; media_type: string; data: string } };
+
+export async function fileToContentBlock(file: File): Promise<ContentBlock> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const dataUrl = reader.result as string;
+      const [header, data] = dataUrl.split(',');
+      const mediaType = header.match(/:(.*?);/)?.[1] ?? 'image/jpeg';
+      resolve({ type: 'image', source: { type: 'base64', media_type: mediaType, data } });
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+export async function sendMessage(
+  apiKey: string,
+  systemPrompt: string,
+  content: ContentBlock[],
+): Promise<{ text: string; error?: string }> {
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true',
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 4096,
+        system: systemPrompt,
+        messages: [{ role: 'user', content }],
+      }),
+    });
+
+    if (!response.ok) {
+      const body = await response.text();
+      return { text: '', error: `API error ${response.status}: ${body}` };
+    }
+
+    const data = await response.json();
+    const text = data.content
+      ?.filter((b: { type: string }) => b.type === 'text')
+      .map((b: { text: string }) => b.text)
+      .join('') ?? '';
+    return { text };
+  } catch (e) {
+    return { text: '', error: `Network error: ${e instanceof Error ? e.message : String(e)}` };
+  }
+}
+
 export async function streamMessage(
   apiKey: string,
   systemPrompt: string,
