@@ -98,6 +98,22 @@
   let pricingConfig = $state<PricingConfig>(loadPricingConfig());
   let showPricingConfig = $state(false);
 
+  // Splash video
+  let videoExpanded = $state(true);
+  let videoEl: HTMLVideoElement | undefined = $state(undefined);
+
+  function onVideoEnded() {
+    videoExpanded = false;
+  }
+
+  function replayVideo() {
+    videoExpanded = true;
+    if (videoEl) {
+      videoEl.currentTime = 0;
+      videoEl.play();
+    }
+  }
+
   function saveApiKey() {
     localStorage.setItem('art-agent-api-key', apiKey);
   }
@@ -342,6 +358,29 @@
 </script>
 
 <div class="mx-auto max-w-3xl px-5 py-10 font-serif text-base leading-relaxed sm:py-16">
+  <!-- Splash video -->
+  {#if videoExpanded}
+    <div class="mb-6 overflow-hidden">
+      <!-- svelte-ignore a11y_media_has_caption -->
+      <video
+        bind:this={videoEl}
+        src="/intro.mp4"
+        autoplay
+        muted
+        playsinline
+        onended={onVideoEnded}
+        class="w-full"
+      ></video>
+    </div>
+  {:else}
+    <button
+      onclick={replayVideo}
+      class="mb-6 flex w-full items-center justify-center border border-current/10 py-1 font-mono text-[10px] uppercase tracking-widest opacity-30 transition-opacity hover:opacity-60"
+    >
+      replay
+    </button>
+  {/if}
+
   <!-- Header -->
   <div class="mb-8 flex flex-wrap items-baseline justify-between gap-4">
     <h1 class="font-serif text-2xl font-bold tracking-tight">Art Agent</h1>
