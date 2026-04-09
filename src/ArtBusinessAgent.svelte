@@ -100,17 +100,7 @@
 
   // Splash video
   let videoExpanded = $state(true);
-  let videoReady = $state(false);
   let videoEl: HTMLVideoElement | undefined = $state(undefined);
-
-  function onVideoLoaded() {
-    videoReady = true;
-  }
-
-  function onVideoError() {
-    videoExpanded = false;
-    videoReady = false;
-  }
 
   function onVideoEnded() {
     videoExpanded = false;
@@ -370,21 +360,20 @@
 <div class="mx-auto max-w-3xl px-5 py-10 font-serif text-base leading-relaxed sm:py-16">
   <!-- Splash video -->
   {#if videoExpanded}
-    <div class="mb-6 overflow-hidden" class:hidden={!videoReady}>
+    <div class="mb-6">
       <!-- svelte-ignore a11y_media_has_caption -->
       <video
         bind:this={videoEl}
-        src="/intro.mp4"
         autoplay
         muted
         playsinline
-        onloadeddata={onVideoLoaded}
-        onerror={onVideoError}
         onended={onVideoEnded}
         class="w-full"
-      ></video>
+      >
+        <source src="/intro.mp4" type="video/mp4" />
+      </video>
     </div>
-  {:else if videoReady}
+  {:else}
     <button
       onclick={replayVideo}
       class="mb-6 flex w-full items-center justify-center border border-current/10 py-1 font-mono text-[10px] uppercase tracking-widest opacity-30 transition-opacity hover:opacity-60"
