@@ -151,6 +151,7 @@
 </head>
 <body>
   <header>
+    <p>In 2011 I taught myself machine learning. In 2013 I shipped my first AI product on the first-generation NLP and voice APIs that existed. I bought this domain in 2015 for what came next: a suite of small, genuinely useful tools, the way software felt before everything got complicated &amp; focused on extracting every dollar per user. The moment I was building toward took the rest of the world another decade to notice. I'm still building.</p>
     <p>Some of these are gaps I found and decided to fill. Some are things I built to understand something. All of them are mine.</p>
     <p>My consulting work lives at <a href="https://socialomical.com">Socialomical</a>. My art lives at <a href="https://salinamendoza.com">salinamendoza.com</a>. This is everything else.</p>
     <button class="listen" aria-pressed="false" onclick="
@@ -172,12 +173,11 @@
     <div class="project-detail">
       <a href="https://suiteorganize.com" target="_blank" class="project-url">suiteorganize.com ↗</a>
       <div class="project-body">
-        <p>Built for events under 100 people — cannabis events, underground arts, community gatherings, anyone mainstream platforms redline. Full event creation, public registration, QR check-in, organizer profiles, and offline sync for venues with bad connectivity.</p>
-        <p>The offline-first check-in was the hard part: IndexedDB + a lean service worker so the whole thing works when the WiFi dies. Currently being rebuilt from Lovable onto SvelteKit + Cloudflare Workers — own the infrastructure, own the performance, own the credibility.</p>
+        <p>Built for events under 100 people, cannabis events, underground arts, community gatherings, anyone mainstream platforms redline. Full event creation, public registration, QR check-in, organizer profiles, and offline sync for venues with bad connectivity.</p>
+        <p>The offline-first check-in was the hard part: IndexedDB plus a lean service worker so the whole thing keeps working when the WiFi dies. Rebuilt from Lovable onto SvelteKit + Cloudflare Workers to own the infrastructure, performance, and credibility end to end.</p>
       </div>
       <div class="tags">
         <span class="tag">SvelteKit</span>
-        <span class="tag">Supabase</span>
         <span class="tag">Cloudflare</span>
         <span class="tag">Offline-first</span>
       </div>
@@ -225,6 +225,23 @@
   </details>
   <details class="project">
     <summary>
+      <span class="project-name">Local Art Calendar</span>
+      <span class="project-tldr">Arts event discovery for the things that don't get the ad budget</span>
+      <span class="project-toggle">+ more</span>
+    </summary>
+    <div class="project-detail">
+      <a href="https://localartcalendar.com" target="_blank" class="project-url">localartcalendar.com ↗</a>
+      <div class="project-body">
+        <p>Arts events, community gatherings, independent venues — the things that don't make it onto the featured page because they don't have the ad budget.</p>
+      </div>
+      <div class="tags">
+        <span class="tag">SvelteKit</span>
+        <span class="tag">Cloudflare</span>
+      </div>
+    </div>
+  </details>
+  <details class="project">
+    <summary>
       <span class="project-name">BrainGroov</span>
       <span class="project-tldr">Real-time brain region activation mapped to whatever you're listening to</span>
       <span class="project-toggle">+ more</span>
@@ -245,24 +262,27 @@
   </details>
   <details class="project">
     <summary>
-      <span class="project-name">Local Art Calendar</span>
-      <span class="project-tldr">Arts event discovery for the things that don't get the ad budget</span>
+      <span class="project-name">Artist Safespaces</span>
+      <span class="project-tldr">Nonprofit + annual IKEA festival + a platform built from 10+ years inside the arts ecosystem</span>
       <span class="project-toggle">+ more</span>
     </summary>
     <div class="project-detail">
-      <a href="https://localartcalendar.com" target="_blank" class="project-url">localartcalendar.com ↗</a>
+      <a href="https://artistsafespaces.org" target="_blank" class="project-url">artistsafespaces.org ↗</a>
       <div class="project-body">
-        <p>Arts events, community gatherings, independent venues — the things that don't make it onto the featured page because they don't have the ad budget.</p>
+        <p>This one didn't start with a product idea. It started with 10+ years working inside every layer of the arts ecosystem, leading art committees, local government arts programming, anti-graffiti initiatives, mural restorations, running an art directory, curating as a gallery partner, and producing city-wide art walks. I've studied how arts organizations operate from the institutional level down to the most local. What's missing is a plan, the technology to execute it, and partners to fund it without ongoing government dependency.</p>
+        <p>Artist Safespaces is the nonprofit vehicle, running an annual festival in partnership with IKEA. Behind it is a multi-tenant booking and event-operations platform I designed and built: artist roster, partner CRM, open-call applications, clickwrap contracts with counter-offer negotiation, and partner event hubs. It's live in beta across two client instances, and we've used it to run two events with our IKEA partner and hire 10 artists in its first month, dogfooded on our own events, white-label ready for cities to run their own arts programming.</p>
       </div>
       <div class="tags">
         <span class="tag">SvelteKit</span>
-        <span class="tag">Cloudflare</span>
+        <span class="tag">Cloudflare D1</span>
+        <span class="tag">Multi-tenant</span>
+        <span class="tag">Live in beta</span>
       </div>
     </div>
   </details>
   <details class="project">
     <summary>
-      <span class="project-name">1491 Taíno Alive</span>
+      <span class="project-name">1491: Taíno Alive</span>
       <span class="project-tldr">Three-system museum installation — web kiosk, thermal printer, CRT display — with a weighted erasure algorithm that mirrors colonial census practices</span>
       <span class="project-toggle">+ more</span>
     </summary>
@@ -280,26 +300,6 @@
         <span class="tag">Thermal printing</span>
         <span class="tag">MDA / CRT driver</span>
         <span class="tag">Museum installation</span>
-      </div>
-    </div>
-  </details>
-  <details class="project">
-    <summary>
-      <span class="project-name">Artist Safe Spaces</span>
-      <span class="project-tldr">Nonprofit + annual IKEA festival + a platform built from 10+ years inside the arts ecosystem</span>
-      <span class="project-toggle">+ more</span>
-    </summary>
-    <div class="project-detail">
-      <a href="https://artistsafespaces.com" target="_blank" class="project-url">artistsafespaces.com ↗</a>
-      <div class="project-body">
-        <p>This one didn't start with a product idea. It started with 10+ years working inside every layer of the arts ecosystem — leading art committees, local government arts programming, anti-graffiti initiatives, mural restorations, running an art directory, curating as a gallery partner, and producing city-wide art walks. I've studied how arts organizations operate from the highest institutional level down to the most local. What's missing is a plan, technology to execute it, and partners to fund it without ongoing government dependency.</p>
-        <p>Artist Safe Spaces is the nonprofit vehicle. We run an annual festival in partnership with IKEA. The mission is building art parks in every city in the US. Behind the current site, a platform is in development — white-labeled tools cities can use to run their own arts programming, dogfooded on our own events and integrated with the Suite ecosystem.</p>
-      </div>
-      <div class="tags">
-        <span class="tag">Nonprofit</span>
-        <span class="tag">IKEA partnership</span>
-        <span class="tag">SvelteKit</span>
-        <span class="tag">Platform in progress</span>
       </div>
     </div>
   </details>
