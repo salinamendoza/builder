@@ -25,13 +25,32 @@
       color: var(--ink);
     }
     body {
-      max-width: 760px;
+      max-width: 1240px;
       margin: 0 auto;
-      padding: var(--gap) clamp(1.25rem, 5vw, 2rem);
+      padding: var(--gap) clamp(1.25rem, 5vw, 2.5rem);
       line-height: 1.6;
     }
     a { color: inherit; }
-    header { margin-bottom: calc(var(--gap) * 1.25); }
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--gap);
+    }
+    @media (min-width: 900px) {
+      .layout {
+        grid-template-columns: minmax(280px, 360px) 1fr;
+        gap: clamp(3rem, 6vw, 5.5rem);
+        align-items: start;
+      }
+      .intro {
+        position: sticky;
+        top: var(--gap);
+        max-height: calc(100vh - var(--gap) * 2);
+        overflow-y: auto;
+      }
+      .intro::-webkit-scrollbar { width: 0; }
+    }
+    .intro { margin-bottom: 0; }
     .name {
       font-family: var(--serif);
       font-weight: 600;
@@ -194,7 +213,8 @@
   </style>
 </head>
 <body>
-  <header>
+  <div class="layout">
+  <header class="intro">
     <h1 class="name">Salina Mendoza</h1>
     <div class="tagline">Product leader · Engineer · Selected work</div>
     <p>In 2011, I taught myself machine learning. In 2013, I shipped my first AI product on the first-generation NLP and voice APIs that existed. I bought this domain in 2015 for what came next: a suite of small, genuinely useful tools, the way software felt before everything got complicated &amp; focused on extracting every dollar per user. The moment I was building toward took the rest of the world another decade to notice. I'm still building.</p>
@@ -210,6 +230,7 @@
     "></audio></button>
   </header>
 
+  <main class="work">
   <div class="section-label">Selected work</div>
 
   <article class="project">
@@ -367,5 +388,7 @@
   <footer>
     <span>Salina Mendoza</span>
   </footer>
+  </main>
+  </div>
 </body>
 </html>
