@@ -1,0 +1,26 @@
+name = "suiteproducts-ask"
+main = "src/index.ts"
+compatibility_date = "2025-01-01"
+
+# Bind a KV namespace for rate limiting:
+#   wrangler kv:namespace create RATE_LIMIT
+# Then paste the returned id below.
+[[kv_namespaces]]
+binding = "RATE_LIMIT"
+id = "REPLACE_WITH_KV_ID"
+
+# Secrets (set via `wrangler secret put <NAME>`):
+#   ANTHROPIC_API_KEY  — required
+#   RESEND_API_KEY     — required for /api/escalate
+#
+# Vars (safe to commit):
+[vars]
+TO_EMAIL = "salina@salinamendoza.com"
+FROM_EMAIL = "ask@suiteproducts.com"
+ALLOWED_ORIGIN = "https://suiteproducts.com"
+
+# Embed the knowledge base as a text import:
+[[rules]]
+type = "Text"
+globs = ["**/*.md"]
+fallthrough = true

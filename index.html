@@ -229,6 +229,211 @@
         font-size: 0.75rem;
       }
     }
+
+    /* Ask panel */
+    .ask-fab {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 50;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--ink);
+      color: var(--paper);
+      border: none;
+      border-radius: 999px;
+      padding: 0.85rem 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .ask-fab:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,0.22); }
+    .ask-fab .dot { display: inline-block; width: 6px; height: 6px; background: #6ee7b7; border-radius: 50%; margin-right: 0.55rem; vertical-align: middle; }
+
+    .ask-panel {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      width: min(420px, calc(100vw - 2rem));
+      height: min(620px, calc(100vh - 3rem));
+      background: var(--paper);
+      border: 1px solid rgba(0,0,0,0.12);
+      border-radius: 14px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.22);
+      z-index: 51;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .ask-panel.open { display: flex; }
+    .ask-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .ask-head .close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: var(--mono);
+      font-size: 1.1rem;
+      opacity: 0.55;
+      padding: 0;
+      line-height: 1;
+    }
+    .ask-head .close:hover { opacity: 1; }
+    .ask-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+    .ask-msg {
+      font-size: 0.94rem;
+      line-height: 1.6;
+      padding: 0.7rem 0.85rem;
+      border-radius: 10px;
+      max-width: 88%;
+    }
+    .ask-msg.user { background: var(--ink); color: var(--paper); align-self: flex-end; }
+    .ask-msg.assistant { background: #f0efe9; align-self: flex-start; }
+    .ask-msg.assistant a { text-decoration: underline; text-underline-offset: 2px; }
+    .ask-suggest {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-top: 0.5rem;
+    }
+    .ask-suggest button {
+      text-align: left;
+      background: none;
+      border: 1px solid rgba(0,0,0,0.15);
+      border-radius: 8px;
+      padding: 0.6rem 0.75rem;
+      font-family: var(--serif);
+      font-size: 0.9rem;
+      line-height: 1.4;
+      cursor: pointer;
+      color: inherit;
+      transition: background 0.12s, border-color 0.12s;
+    }
+    .ask-suggest button:hover { background: #f0efe9; border-color: rgba(0,0,0,0.3); }
+    .ask-empty {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.55;
+      margin-bottom: 0.25rem;
+    }
+    .ask-form {
+      border-top: 1px solid rgba(0,0,0,0.08);
+      padding: 0.7rem 0.85rem;
+      display: flex;
+      gap: 0.5rem;
+    }
+    .ask-form input {
+      flex: 1;
+      border: 1px solid rgba(0,0,0,0.15);
+      border-radius: 8px;
+      padding: 0.55rem 0.75rem;
+      font-family: var(--serif);
+      font-size: 0.95rem;
+      background: var(--paper);
+      color: var(--ink);
+      outline: none;
+    }
+    .ask-form input:focus { border-color: var(--ink); }
+    .ask-form button {
+      background: var(--ink);
+      color: var(--paper);
+      border: none;
+      border-radius: 8px;
+      padding: 0 1rem;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .ask-form button:disabled { opacity: 0.45; cursor: not-allowed; }
+    .ask-foot {
+      padding: 0.55rem 0.85rem;
+      border-top: 1px solid rgba(0,0,0,0.06);
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      display: flex;
+      justify-content: space-between;
+      opacity: 0.6;
+    }
+    .ask-foot button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font: inherit;
+      letter-spacing: inherit;
+      text-transform: inherit;
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      padding: 0;
+    }
+    .ask-contact {
+      display: none;
+      flex-direction: column;
+      gap: 0.6rem;
+      padding: 1rem;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      background: #f0efe9;
+    }
+    .ask-contact.open { display: flex; }
+    .ask-contact label {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.65;
+    }
+    .ask-contact input, .ask-contact textarea {
+      border: 1px solid rgba(0,0,0,0.15);
+      border-radius: 8px;
+      padding: 0.55rem 0.7rem;
+      font-family: var(--serif);
+      font-size: 0.95rem;
+      background: var(--paper);
+      color: var(--ink);
+      outline: none;
+      width: 100%;
+    }
+    .ask-contact textarea { min-height: 70px; resize: vertical; }
+    .ask-contact .hp { position: absolute; left: -9999px; }
+    .ask-contact .row { display: flex; gap: 0.5rem; }
+    .ask-contact .row > * { flex: 1; }
+    .ask-contact .send {
+      background: var(--ink);
+      color: var(--paper);
+      border: none;
+      border-radius: 8px;
+      padding: 0.6rem 1rem;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .ask-status { font-family: var(--mono); font-size: 0.7rem; opacity: 0.7; }
   </style>
 </head>
 <body>
@@ -244,7 +449,7 @@
       if(p){a.pause();this.setAttribute('aria-pressed','false');this.textContent='► Listen'}
       else{a.play();this.setAttribute('aria-pressed','true');this.textContent='■ Stop'}
       if(!this.querySelector('audio'))this.appendChild(a);
-    ">► Listen<audio src="intro.mp3" preload="none" onended="
+    ">► Listen<audio src="intro.m4a" preload="none" onended="
       var b=this.parentElement;b.setAttribute('aria-pressed','false');b.textContent='► Listen';b.appendChild(this);
     "></audio></button>
   </header>
@@ -409,5 +614,155 @@
   </footer>
   </main>
   </div>
+
+  <button class="ask-fab" id="askFab" aria-label="Ask about my work" style="display:none">
+    <span class="dot"></span>Ask about my work
+  </button>
+
+  <aside class="ask-panel" id="askPanel" aria-label="Ask Salina">
+    <div class="ask-head">
+      <span>Ask about my work</span>
+      <button class="close" id="askClose" aria-label="Close">×</button>
+    </div>
+    <div class="ask-body" id="askBody">
+      <div class="ask-empty">Try asking</div>
+      <div class="ask-suggest" id="askSuggest">
+        <button data-q="What is SuiteInventory and how does it work?">What is SuiteInventory and how does it work?</button>
+        <button data-q="Tell me about the 1491 Taíno Alive installation.">Tell me about the 1491 Taíno Alive installation.</button>
+        <button data-q="What kind of role is Salina looking for?">What kind of role is Salina looking for?</button>
+      </div>
+    </div>
+    <form class="ask-form" id="askForm">
+      <input id="askInput" type="text" placeholder="Ask anything…" autocomplete="off" required />
+      <button type="submit" id="askSend">Send</button>
+    </form>
+    <form class="ask-contact" id="askContact" novalidate>
+      <label for="cName">Get in touch directly</label>
+      <div class="row">
+        <input id="cName" type="text" placeholder="Your name" />
+        <input id="cEmail" type="email" placeholder="Your email" required />
+      </div>
+      <textarea id="cMessage" placeholder="What would you like to ask Salina?" required></textarea>
+      <input class="hp" id="cHp" type="text" tabindex="-1" autocomplete="off" />
+      <button class="send" type="submit">Send to Salina</button>
+      <div class="ask-status" id="cStatus"></div>
+    </form>
+    <div class="ask-foot">
+      <span>Grounded · Claude</span>
+      <button id="askContactToggle">Contact Salina ↗</button>
+    </div>
+  </aside>
+
+  <script>
+    (function () {
+      var API = (window.ASK_API_BASE || '/api');
+      var fab = document.getElementById('askFab');
+      var panel = document.getElementById('askPanel');
+      var close = document.getElementById('askClose');
+      var body = document.getElementById('askBody');
+      var form = document.getElementById('askForm');
+      var input = document.getElementById('askInput');
+      var send = document.getElementById('askSend');
+      var suggest = document.getElementById('askSuggest');
+      var contact = document.getElementById('askContact');
+      var contactToggle = document.getElementById('askContactToggle');
+      var cStatus = document.getElementById('cStatus');
+      var transcript = [];
+
+      function openPanel() { panel.classList.add('open'); fab.style.display = 'none'; setTimeout(function(){ input.focus(); }, 80); }
+      function closePanel() { panel.classList.remove('open'); fab.style.display = ''; }
+      fab.addEventListener('click', openPanel);
+      close.addEventListener('click', closePanel);
+
+      contactToggle.addEventListener('click', function () { contact.classList.toggle('open'); });
+
+      function bubble(role, text) {
+        var div = document.createElement('div');
+        div.className = 'ask-msg ' + role;
+        div.textContent = text;
+        body.appendChild(div);
+        body.scrollTop = body.scrollHeight;
+        return div;
+      }
+
+      function offerEscalation() {
+        var wrap = document.createElement('div');
+        wrap.className = 'ask-suggest';
+        var b = document.createElement('button');
+        b.textContent = '✉ Forward this question to Salina';
+        b.addEventListener('click', function () {
+          var lastUser = [].concat(transcript).reverse().find(function(m){return m.role==='user';});
+          if (lastUser) document.getElementById('cMessage').value = lastUser.content;
+          contact.classList.add('open');
+          document.getElementById('cEmail').focus();
+          wrap.remove();
+        });
+        wrap.appendChild(b);
+        body.appendChild(wrap);
+        body.scrollTop = body.scrollHeight;
+      }
+
+      async function ask(q) {
+        if (suggest) { suggest.remove(); document.querySelector('.ask-empty')?.remove(); }
+        bubble('user', q);
+        transcript.push({ role: 'user', content: q });
+        input.value = '';
+        send.disabled = true;
+        var thinking = bubble('assistant', '…');
+        try {
+          var r = await fetch(API + '/ask', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ messages: transcript }),
+          });
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          var data = await r.json();
+          thinking.textContent = data.reply || '(no reply)';
+          transcript.push({ role: 'assistant', content: data.reply || '' });
+          if (data.escalate) offerEscalation();
+        } catch (e) {
+          thinking.textContent = "Something went wrong. You can email Salina directly via the link below.";
+        } finally {
+          send.disabled = false;
+          input.focus();
+        }
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var q = input.value.trim();
+        if (q) ask(q);
+      });
+
+      suggest.addEventListener('click', function (e) {
+        var btn = e.target.closest('button[data-q]');
+        if (btn) ask(btn.getAttribute('data-q'));
+      });
+
+      contact.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        cStatus.textContent = 'Sending…';
+        var payload = {
+          name: document.getElementById('cName').value.trim(),
+          email: document.getElementById('cEmail').value.trim(),
+          message: document.getElementById('cMessage').value.trim(),
+          honeypot: document.getElementById('cHp').value,
+          transcript: transcript,
+        };
+        try {
+          var r = await fetch(API + '/escalate', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          cStatus.textContent = "Sent. Salina will reply soon.";
+          document.getElementById('cMessage').value = '';
+        } catch (e) {
+          cStatus.textContent = "Couldn't send. Try emailing salina@salinamendoza.com directly.";
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
