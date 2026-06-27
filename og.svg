@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@600&amp;family=JetBrains+Mono:wght@500&amp;display=swap');
+      .name { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 120px; fill: #1a1a1a; letter-spacing: -0.02em; }
+      .role { font-family: 'JetBrains Mono', ui-monospace, monospace; font-weight: 500; font-size: 28px; fill: #1a1a1a; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.6; }
+      .url  { font-family: 'JetBrains Mono', ui-monospace, monospace; font-weight: 500; font-size: 22px; fill: #1a1a1a; letter-spacing: 0.12em; opacity: 0.45; }
+    </style>
+  </defs>
+  <rect width="1200" height="630" fill="#fafaf7"/>
+  <text x="80" y="320" class="name">Salina Mendoza</text>
+  <text x="82" y="380" class="role">Product leader · Engineer</text>
+  <text x="82" y="560" class="url">suiteproducts.com</text>
+</svg>
