@@ -1,0 +1,25 @@
+# Vite-hashed assets (filename changes when content changes — safe to cache forever)
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Screenshots — change rarely, OK to cache a year
+/screenshots/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Audio intro
+/intro.m4a
+  Cache-Control: public, max-age=31536000, immutable
+
+# Favicon + OG image
+/favicon.svg
+  Cache-Control: public, max-age=2592000
+/og.svg
+  Cache-Control: public, max-age=2592000
+/og.png
+  Cache-Control: public, max-age=2592000
+
+# HTML — short cache so updates ship fast
+/
+  Cache-Control: public, max-age=300, must-revalidate
+/index.html
+  Cache-Control: public, max-age=300, must-revalidate
