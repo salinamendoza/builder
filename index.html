@@ -473,14 +473,10 @@
     <p>In 2011, I taught myself machine learning. In 2013, I shipped my first AI product on the first-generation NLP and voice APIs that existed. I bought this domain in 2015 for what came next: a suite of small, genuinely useful tools, the way software felt before everything got complicated &amp; focused on extracting every dollar per user. The moment I was building toward took the rest of the world another decade to notice. I'm still building.</p>
     <p>Some of these are gaps I found and decided to fill. Some are things I built to understand something. All of them are mine.</p>
     <p>My consulting work lives at <a href="https://socialomical.com">Socialomical</a>. My art lives at <a href="https://salinamendoza.com">salinamendoza.com</a>. This is everything else.</p>
-    <button class="listen" aria-pressed="false" onclick="
-      var a=this.querySelector('audio'),p=this.getAttribute('aria-pressed')==='true';
-      if(p){a.pause();this.setAttribute('aria-pressed','false');this.textContent='► Listen'}
-      else{a.play();this.setAttribute('aria-pressed','true');this.textContent='■ Stop'}
-      if(!this.querySelector('audio'))this.appendChild(a);
-    ">► Listen<audio src="intro.m4a" preload="none" onended="
-      var b=this.parentElement;b.setAttribute('aria-pressed','false');b.textContent='► Listen';b.appendChild(this);
-    "></audio></button>
+    <button class="listen" id="listenBtn" aria-pressed="false">
+      <span id="listenLabel">► Listen</span>
+      <audio id="introAudio" src="intro.m4a" preload="metadata"></audio>
+    </button>
   </header>
 
   <main class="work">
@@ -702,6 +698,42 @@
   </aside>
 
   <script>
+    (function () {
+      var btn = document.getElementById('listenBtn');
+      var label = document.getElementById('listenLabel');
+      var audio = document.getElementById('introAudio');
+      if (!btn || !audio) return;
+      function fmt(s) {
+        if (!isFinite(s) || s < 0) s = 0;
+        var m = Math.floor(s / 60), sec = Math.floor(s % 60);
+        return m + ':' + (sec < 10 ? '0' : '') + sec;
+      }
+      function idleLabel() {
+        var d = audio.duration;
+        label.textContent = isFinite(d) && d > 0 ? '► Listen · ' + fmt(d) : '► Listen';
+      }
+      audio.addEventListener('loadedmetadata', idleLabel);
+      btn.addEventListener('click', function () {
+        if (audio.paused) audio.play(); else audio.pause();
+      });
+      audio.addEventListener('play', function () {
+        btn.setAttribute('aria-pressed', 'true');
+      });
+      audio.addEventListener('pause', function () {
+        btn.setAttribute('aria-pressed', 'false');
+        idleLabel();
+      });
+      audio.addEventListener('timeupdate', function () {
+        if (audio.paused) return;
+        label.textContent = '■ ' + fmt((audio.duration || 0) - audio.currentTime);
+      });
+      audio.addEventListener('ended', function () {
+        btn.setAttribute('aria-pressed', 'false');
+        idleLabel();
+      });
+      idleLabel();
+    })();
+
     (function () {
       var API = (window.ASK_API_BASE || '/api');
       var fab = document.getElementById('askFab');
