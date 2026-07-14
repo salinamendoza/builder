@@ -56,10 +56,11 @@ These were tried and removed. Don't bring them back.
 
 ## Adding a project
 
-1. Drop `screenshots/<slug>.png` (native ratio, ~1600px wide).
+1. Drop `screenshots/<slug>.png` (native ratio, ~1600px wide) AND generate the WebP in the same commit: `cwebp -q 82 screenshots/<slug>.png -o screenshots/<slug>.webp`. Cards use `<picture>` with a WebP `<source>` — a `<picture>` only falls back to the `<img>` when the browser lacks WebP support, NOT on a 404. So a declared `.webp` with no file = permanently broken image in every browser. The `.webp` must land with the card that references it.
 2. Add an `<article class="project">` block in `index.html`, modeling on an existing one.
 3. Mirror the same change to `kb/salina.md` so the Ask agent knows about it.
-4. Order matters — Suite products grouped at top, others below.
+4. Order matters — Suite products grouped at top, others below. Lead with the strongest/newest for hiring reviewers.
+5. Only the first (LCP) image carries `fetchpriority="high"`; every other card image is `loading="lazy"`. If you change the lead project, move the flag.
 
 ## Ask agent
 
