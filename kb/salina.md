@@ -38,6 +38,17 @@ You can email me at salina@salinamendoza.com, or use the "Contact Salina" link i
 
 ## Projects
 
+### Concepts — artistlocker.com
+
+A free, no-signup browser studio for muralists. The first of many artist tools planned for artistlocker.com. Design a wall at real-world scale, then use a phone at the wall to align, measure, and trace. Built for Salina's own mural practice and pressure-tested on a live commission days after shipping.
+
+- Canvas: native-SVG editor in real feet — shapes, freehand tracing with shift-straight runs, knockout lettering, and a cut/divide system that runs planar subdivision over cut lines so any region floods with color and reflows live as cuts move.
+- Wall Transfer: photograph the wall, drag four corners, and a closed-form homography (written in-house after the popular npm library silently failed under ESM bundling) registers the design onto the photo. The alignment grid is pre-warped in code and drawn as flat 2D SVG — sidestepping a GPU Chrome bug that drops thin strokes inside perspective transforms. Lock mode freezes registration so tracing can't nudge it; wake lock, trace view, and an A1-style cell navigator round out on-site use.
+- Exports: true-vector PDFs with the palette as hex swatches and painted letterform measurements — per-letter width, height, and spacing to the nearest ¼", from real font metrics. Aligned wall images use an exact per-pixel inverse-mapped projective warp.
+- Zero backend: vector-only autosave to localStorage; "send to phone" compresses the whole project into a QR-encoded URL fragment. No accounts, no server — wall photos never leave the device.
+- Stack: SvelteKit (Svelte 5 runes), TypeScript, SVG, Canvas, jsPDF/svg2pdf, Cloudflare Pages.
+- Designed and built end-to-end by Salina.
+
 ### SuiteInventory — suiteinventory.com
 
 Mobile-first capture + listing layer on top of Shopify, distributed as a Shopify app store app. Photograph physical inventory in a storage unit, capture price and notes, generate listing copy with Claude, push a draft product to Shopify, curate pieces onto a public sale page at suiteinventory.com/<seller>/<slug>.
