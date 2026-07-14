@@ -496,10 +496,33 @@
 
   <main class="work">
   <article class="project">
+    <a class="project-shot" href="https://artistlocker.com" target="_blank" rel="noopener">
+      <picture>
+        <source srcset="screenshots/concepts.webp" type="image/webp">
+        <img src="screenshots/concepts.png" alt="Concepts — mural design studio" fetchpriority="high" decoding="async">
+      </picture>
+      <div class="url-overlay">artistlocker.com <span class="arrow">↗</span></div>
+    </a>
+    <h2 class="project-name">Concepts</h2>
+    <p class="project-tldr">Free browser studio for muralists — design a wall at real-world scale, then align, measure, and trace it from your phone</p>
+    <div class="project-body">
+      <p>A free, no-signup browser studio for muralists, and the first of many artist tools on artistlocker.com. Draw your wall in real feet, cut it into paintable regions, and size lettering with painted measurements down to the ¼ inch. On site, photograph the wall, pin four corners, and the design locks onto the bricks — warped grid, trace view, and cell-by-cell zoom for transfer day. Built for my own practice and pressure-tested on a live commission days after shipping.</p>
+      <p>The wall-transfer alignment is a closed-form homography I wrote in-house after the popular npm library silently failed under ESM bundling. The grid is pre-warped in code and drawn as flat 2D SVG to sidestep a Chrome GPU bug that drops thin strokes inside perspective transforms. Zero backend: projects autosave to your device as vectors, and "send to phone" compresses the whole project into a QR-encoded URL — wall photos never leave the device.</p>
+    </div>
+    <div class="tags">
+      <span class="tag">SvelteKit</span>
+      <span class="tag">Svelte 5 runes</span>
+      <span class="tag">SVG + Canvas</span>
+      <span class="tag">jsPDF / svg2pdf</span>
+      <span class="tag">Cloudflare Pages</span>
+    </div>
+  </article>
+
+  <article class="project">
     <a class="project-shot" href="https://suiteinventory.com" target="_blank" rel="noopener">
       <picture>
         <source srcset="screenshots/suiteinventory.webp" type="image/webp">
-        <img src="screenshots/suiteinventory.png" alt="SuiteInventory studio sale page" fetchpriority="high" decoding="async">
+        <img src="screenshots/suiteinventory.png" alt="SuiteInventory studio sale page" loading="lazy" decoding="async">
       </picture>
       <div class="url-overlay">suiteinventory.com <span class="arrow">↗</span></div>
     </a>
